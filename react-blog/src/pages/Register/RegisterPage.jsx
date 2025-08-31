@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import '../Login/LoginPage.css'; // Reusing the same CSS
-
-// Get the base URL from the environment variable
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+import '../Login/LoginPage.css'; // Reusing the same CSS file is correct
 
 const RegisterPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // 👈 New state for visibility
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const navigate = useNavigate();
@@ -18,19 +15,19 @@ const RegisterPage = () => {
     setError('');
     setSuccess('');
     try {
-      // 👇 CORRECTED: Use the environment variable for the API call
-      const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
+      const response = await fetch('https://my-react-blog-backend.onrender.com/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
       });
       const data = await response.json();
       if (!response.ok) {
-        throw data;
+        throw data; // Throw the entire error object from the server
       }
       setSuccess('Registration successful! Please login.');
       setTimeout(() => navigate('/login'), 2000);
     } catch (err) {
+      // This will now log the detailed error object from the server
       console.error("DETAILED SERVER ERROR:", err); 
       setError(err.message || 'Failed to register');
     }
@@ -46,17 +43,30 @@ const RegisterPage = () => {
           <label htmlFor="username">Username</label>
           <input id="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
         </div>
+        
+        {/* 👇 This section has been updated */}
         <div className="form-group">
           <label htmlFor="password">Password</label>
           <div className="password-wrapper">
-            <input id="password" type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} required />
-            <button type="button" className="password-toggle-btn" onClick={() => setShowPassword(!showPassword)}>
+            <input 
+              id="password" 
+              type={showPassword ? "text" : "password"} 
+              value={password} 
+              onChange={(e) => setPassword(e.target.value)} 
+              required 
+            />
+            <button 
+              type="button" 
+              className="password-toggle-btn" 
+              onClick={() => setShowPassword(!showPassword)}
+            >
               {showPassword ? "Hide" : "Show"}
             </button>
           </div>
         </div>
+
         <button type="submit" className="submit-btn">Register</button>
-        <p className="auth-switch">
+         <p className="auth-switch">
           Already have an account? <Link to="/login">Login here</Link>
         </p>
       </form>
