@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "./Blog.css";
+import "./BlogPost.css";
 
 // Get the base URL from the environment variable
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
