@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import '../Login/LoginPage.css';
+import '../Login/LoginPage.css'; // Reusing the same CSS
+
+// Get the base URL from the environment variable
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const RegisterPage = () => {
   const [username, setUsername] = useState('');
@@ -15,19 +18,19 @@ const RegisterPage = () => {
     setError('');
     setSuccess('');
     try {
-      const response = await fetch('https://my-react-blog-backend.onrender.com/api/auth/register', {
+      // 👇 CORRECTED: Use the environment variable for the API call
+      const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
       });
       const data = await response.json();
       if (!response.ok) {
-        throw data; // Throw the entire error object from the server
+        throw data;
       }
       setSuccess('Registration successful! Please login.');
       setTimeout(() => navigate('/login'), 2000);
     } catch (err) {
-      // This will now log the detailed error object from the server
       console.error("DETAILED SERVER ERROR:", err); 
       setError(err.message || 'Failed to register');
     }
