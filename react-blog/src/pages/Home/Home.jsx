@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
 
+const API_URL = import.meta.env.VITE_API_BASE_URL;
+
 const Home = () => {
   const [featuredPosts, setFeaturedPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -10,7 +12,7 @@ const Home = () => {
   useEffect(() => {
     const fetchFeaturedPosts = async () => {
       try {
-        const response = await fetch("https://my-react-blog-backend.onrender.com/api/posts?limit=3");
+        const response = await fetch(`${API_URL}/api/posts?limit=3`);
         if (!response.ok) {
           // If the server responds with an error status (like 404 or 500)
           throw new Error("Network response was not ok");
