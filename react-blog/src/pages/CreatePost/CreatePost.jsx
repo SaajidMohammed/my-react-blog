@@ -18,7 +18,7 @@ const CreatePost = () => {
     formData.append('postImage', image);
 
     try {
-      const response = await fetch('http://localhost:5000/api/posts', {
+      const response = await fetch('https://my-react-blog-backend.onrender.com/api/posts', {
         method: 'POST',
         headers: {
           // 👇 Add the Authorization header with the JWT
