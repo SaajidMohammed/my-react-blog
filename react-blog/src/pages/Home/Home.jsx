@@ -10,7 +10,7 @@ const Home = () => {
   useEffect(() => {
     const fetchFeaturedPosts = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/posts?limit=3");
+        const response = await fetch("https://my-react-blog-backend.onrender.com/api/posts?limit=3");
         if (!response.ok) {
           // If the server responds with an error status (like 404 or 500)
           throw new Error("Network response was not ok");
