@@ -2,41 +2,35 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
 
-const API_URL = import.meta.env.VITE_API_BASE_URL;
+// Get the base URL from the environment variable
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const Home = () => {
   const [featuredPosts, setFeaturedPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null); // 👈 New state for handling errors
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchFeaturedPosts = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/posts?limit=3`);
+        // Use the API_BASE_URL variable for the API call
+        const response = await fetch(`${API_BASE_URL}/api/posts?limit=3`);
         if (!response.ok) {
-          // If the server responds with an error status (like 404 or 500)
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
         setFeaturedPosts(data);
       } catch (error) {
         console.error("Failed to fetch featured posts:", error);
-        // 👇 Set a user-friendly error message
-        setError(
-          "Could not load featured posts. Please make sure the server is running."
-        );
+        setError("Could not load featured posts.");
       } finally {
         setLoading(false);
       }
     };
-
     fetchFeaturedPosts();
   }, []);
 
-  const createExcerpt = (content) => {
-    if (!content) return "";
-    return content.substring(0, 100) + "...";
-  };
+  const createExcerpt = (content) => { /* ... */ };
 
   return (
     <div className="home-container">
@@ -44,10 +38,8 @@ const Home = () => {
         <h1>Welcome to My Blog</h1>
         <p>A place for my thoughts on tech, life, and everything in between.</p>
       </header>
-
       <main className="featured-posts">
         <h2>Featured Posts</h2>
-        {/* 👇 Conditionally render based on loading, error, or success states */}
         {loading && <p>Loading posts...</p>}
         {error && <p className="error-message">{error}</p>}
         {!loading && !error && (
@@ -56,7 +48,8 @@ const Home = () => {
               <article key={post._id} className="post-preview">
                 {post.imagePath && (
                   <img
-                    src={`http://localhost:5000/${post.imagePath}`}
+                    // Use the API_BASE_URL variable for the image source
+                    src={`${API_BASE_URL}/${post.imagePath}`}
                     alt={post.title}
                     className="post-preview-image"
                   />
