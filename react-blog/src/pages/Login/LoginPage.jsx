@@ -1,76 +1,108 @@
-import React, { useState } from 'react';
-import { useAuth } from '../../context/AuthContext';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
-import './LoginPage.css';
+import React, { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import PostOptionsMenu from "../../components/PostOptionsMenu/PostOptionsMenu";
+import "./BlogPost.css";
 
-const LoginPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false); // 👈 New state for visibility
-  const [error, setError] = useState('');
-  const { login } = useAuth();
-  const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+// Get the base URL from the environment variable
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    try {
-      const response = await fetch('https://my-react-blog-backend.onrender.com/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
-      });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.message);
-      
-      login(data.token, data.username, data.userId);
-      
-      navigate(from, { replace: true });
-    } catch (err) {
-      setError(err.message || 'Failed to login');
-    }
-  };
+const BlogPost = () => {
+  const { id } = useParams();
+  const [post, setPost] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { isAuthenticated, userId } = useAuth();
+  const [showMenu, setShowMenu] = useState(false);
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        // 👇 CORRECTED: Use the environment variable for the API call
+        const response = await fetch(`${API_BASE_URL}/api/posts/${id}`);
+        if (!response.ok) {
+          if (response.status === 404) {
+            setPost(null);
+          } else {
+            throw new Error("Network response was not ok");
+          }
+        } else {
+          const data = await response.json();
+          setPost(data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch post:", error);
+        setError("Could not load the post. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPost();
+  }, [id]);
+
+  if (loading) {
+    return <div className="loading-message">Loading post...</div>;
+  }
+
+  if (error) {
+    return <div className="error-message">{error}</div>;
+  }
+
+  if (!post) {
+    return (
+      <div className="post-not-found">
+        <h1>Post Not Found</h1>
+        <p>Sorry, we couldn't find the post you're looking for.</p>
+        <Link to="/blog">← Back to Blog</Link>
+      </div>
+    );
+  }
+
+  const isAuthor = isAuthenticated && post.author?._id === userId;
 
   return (
-    <div className="auth-container">
-      <form onSubmit={handleSubmit} className="auth-form">
-        <h2>Login</h2>
-        {error && <p className="error-message">{error}</p>}
-        <div className="form-group">
-          <label htmlFor="username">Username</label>
-          <input id="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
-        </div>
-        
-        {/* 👇 This section has been updated */}
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <div className="password-wrapper">
-            <input 
-              id="password" 
-              type={showPassword ? "text" : "password"} 
-              value={password} 
-              onChange={(e) => setPassword(e.target.value)} 
-              required 
-            />
-            <button 
-              type="button" 
-              className="password-toggle-btn" 
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? "Hide" : "Show"}
-            </button>
-          </div>
-        </div>
+    <article className="blog-post-container">
+      {post.imagePath && (
+        <img
+          // 👇 CORRECTED: Use the environment variable for the image source
+          src={`${API_BASE_URL}/${post.imagePath}`}
+          alt={post.title}
+          className="post-full-image"
+        />
+      )}
 
-        <button type="submit" className="submit-btn">Login</button>
-        <p className="auth-switch">
-          Don't have an account? <Link to="/register">Register here</Link>
-        </p>
-      </form>
-    </div>
+      <div className="post-header">
+        <h1 className="post-title">{post.title}</h1>
+        {isAuthor && (
+          <button
+            onClick={() => setShowMenu(true)}
+            className="options-btn"
+            aria-label="Post Options"
+          >
+            &#8942; {/* Vertical ellipsis */}
+          </button>
+        )}
+      </div>
+
+      <div className="post-meta">
+        <span>By {post.author?.username || "Unknown Author"}</span> |{" "}
+        <span>{new Date(post.createdAt).toLocaleDateString()}</span>
+      </div>
+
+      <div className="post-content">
+        <p>{post.content}</p>
+      </div>
+
+      <Link to="/blog" className="back-to-blog-link">
+        ← Back to All Posts
+      </Link>
+
+      {showMenu && (
+        <PostOptionsMenu post={post} onClose={() => setShowMenu(false)} />
+      )}
+    </article>
   );
 };
 
-export default LoginPage;
+export default BlogPost;
