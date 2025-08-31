@@ -16,7 +16,7 @@ const EditPost = () => {
         // Fetch the existing post data to pre-fill the form
         const fetchPostData = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/posts/${id}`);
+                const response = await fetch(`https://my-react-blog-backend.onrender.com/api/posts/${id}`);
                 const data = await response.json();
                 if (response.ok) {
                     setTitle(data.title);
