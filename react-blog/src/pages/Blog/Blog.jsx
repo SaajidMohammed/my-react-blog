@@ -10,7 +10,7 @@ const Blog = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/posts");
+        const response = await fetch("https://my-react-blog-backend.onrender.com/api/posts");
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
