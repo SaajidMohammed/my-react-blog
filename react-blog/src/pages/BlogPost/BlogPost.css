@@ -1,0 +1,130 @@
+/* Container for the single blog post */
+.blog-post-container {
+  max-width: 800px; /* Optimal width for readability */
+  margin: 3rem auto; /* Centers the container and adds space */
+  padding: 3rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Full-width header image */
+.post-full-image {
+  /* Negative margins pull the image to the container edges */
+  margin: -3rem -3rem 2.5rem -3rem; 
+  width: calc(100% + 6rem); /* Accommodates the padding */
+  max-width: calc(100% + 6rem);
+  height: 400px;
+  object-fit: cover; /* Prevents image distortion */
+  border-radius: 12px 12px 0 0; /* Match container's top corners */
+}
+
+/* Flex container to align the title and options button */
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Main post title */
+.post-title {
+  font-size: 3rem;
+  color: #2c3e50; /* Dark slate blue */
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* Metadata (author, date) */
+.post-meta {
+  font-size: 1rem;
+  color: #7f8c8d; /* Asbestos gray */
+  margin-bottom: 2.5rem;
+  font-style: italic;
+  display: block; /* Ensures it takes its own line */
+}
+
+/* Main content of the post - styled for readability */
+.post-content {
+  font-size: 1.2rem;
+  line-height: 1.9; /* Generous line spacing */
+  color: #34495e; /* Wetasphalt color */
+}
+
+.post-content p {
+  margin-bottom: 1.5rem;
+}
+
+.post-content h2 {
+  font-size: 2rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+  border-bottom: 2px solid #1abc9c; /* Teal accent for subheadings */
+  padding-bottom: 0.5rem;
+}
+
+/* Options button (⋮) */
+.options-btn {
+  background: none;
+  border: none;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 1; 
+  color: #7f8c8d;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.options-btn:hover {
+  background-color: #f0f0f0;
+}
+
+/* "Back to Blog" link */
+.back-to-blog-link {
+  display: inline-block;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid #eee; /* Separator line */
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #1abc9c;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.back-to-blog-link:hover {
+  color: #16a085;
+}
+
+/* Generic error/loading messages */
+.error-message, .loading-message, .post-not-found {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .blog-post-container {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+  .post-full-image {
+    margin: -1.5rem -1.5rem 1.5rem -1.5rem;
+    width: calc(100% + 3rem);
+    max-width: calc(100% + 3rem);
+    height: 250px;
+  }
+  .post-title {
+    font-size: 2.2rem;
+  }
+}

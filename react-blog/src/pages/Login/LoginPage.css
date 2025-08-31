@@ -1,0 +1,151 @@
+/* Main container to center the form on the page */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  min-height: 80vh; /* Ensures it takes up most of the screen height */
+  background-color: #f4f7f6;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* The form card itself */
+.auth-form {
+  width: 100%;
+  max-width: 420px;
+  padding: 2.5rem;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.auth-form h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #2c3e50; /* Dark slate blue */
+  margin-bottom: 1rem;
+}
+
+/* Wrapper for each label and input pair */
+.auth-form .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-form label {
+  font-size: 1rem;
+  color: #34495e;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.auth-form input {
+  padding: 0.9rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.auth-form input:focus {
+  outline: none;
+  border-color: #1abc9c; /* Teal */
+  box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.2);
+}
+
+/* Reusing the submit button style */
+.auth-form .submit-btn {
+  width: 100%;
+  padding: 1rem;
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #1abc9c;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.auth-form .submit-btn:hover {
+  background-color: #16a085; /* Darker teal */
+  transform: translateY(-2px);
+}
+
+/* Link to switch between login and register */
+.auth-switch {
+  text-align: center;
+  margin-top: 1rem;
+  color: #555;
+}
+
+.auth-switch a {
+  color: #1abc9c;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.auth-switch a:hover {
+  text-decoration: underline;
+}
+
+/* Error and success message styling */
+.error-message,
+.success-message {
+  text-align: center;
+  padding: 0.8rem;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.error-message {
+  background-color: #ffe6e6;
+  color: #e74c3c;
+  border: 1px solid #e74c3c;
+}
+
+.success-message {
+  background-color: #e6ffee;
+  color: #27ae60;
+  border: 1px solid #27ae60;
+}
+
+/* This wrapper allows us to position the button inside the input field */
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  width: 100%;
+}
+
+/* Style the Show/Hide button */
+.password-toggle-btn {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #555;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.5rem;
+}
+
+/* A simple fade-in animation for the page load */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

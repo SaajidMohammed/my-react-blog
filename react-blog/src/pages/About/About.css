@@ -1,0 +1,80 @@
+/* Main container for the about page */
+.about-container {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 2rem;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Main title styling */
+.about-title {
+  text-align: center;
+  font-size: 2.8rem;
+  color: #2c3e50; /* Dark slate blue */
+  margin-bottom: 3rem;
+  padding-bottom: 1rem;
+  border-bottom: 3px solid #1abc9c; /* Teal accent */
+}
+
+/* Flex container for the image and text content */
+.about-content {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+
+/* Styling for the image container */
+.about-image {
+  flex: 1; /* Takes up 1 part of the available space */
+  max-width: 300px;
+}
+
+.about-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 50%; /* Makes the image circular */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for the text content container */
+.about-text {
+  flex: 2; /* Takes up 2 parts of the available space, making it wider */
+}
+
+.about-text h2 {
+  font-size: 2rem;
+  color: #34495e;
+  margin-bottom: 1rem;
+}
+
+.about-text p {
+  font-size: 1.1rem;
+  line-height: 1.8; /* Improves readability */
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .about-content {
+    flex-direction: column; /* Stacks the image and text vertically */
+    text-align: center;
+  }
+
+  .about-image {
+    margin-bottom: 2rem;
+    max-width: 250px; /* Slightly smaller image on mobile */
+  }
+}
+
+/* Simple fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

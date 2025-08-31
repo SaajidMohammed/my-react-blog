@@ -1,0 +1,19 @@
+# Dependencies
+/node_modules
+/server/node_modules
+
+# Environment Variables
+# Ignore the .env file in the server directory
+/server/.env
+
+# Production
+/build
+/dist
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# System files
+.DS_Store

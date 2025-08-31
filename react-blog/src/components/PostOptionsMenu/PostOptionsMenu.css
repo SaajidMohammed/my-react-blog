@@ -1,0 +1,75 @@
+.options-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.options-menu-content {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  width: 90%;
+  max-width: 300px;
+  overflow: hidden;
+}
+
+.options-menu-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.options-menu-content li {
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  text-align: center;
+  font-weight: 500;
+}
+
+.options-menu-content li:last-child {
+  border-bottom: none;
+}
+
+.options-menu-content li:hover {
+  background-color: #f4f4f4;
+}
+
+.options-menu-content li.delete {
+  color: #e74c3c; /* Red */
+}
+
+.confirm-delete {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.confirm-delete p {
+  margin: 0 0 1rem 0;
+  font-weight: 500;
+}
+
+.confirm-btn {
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin: 0 0.5rem;
+}
+
+.confirm-btn.yes {
+  background-color: #e74c3c;
+  color: white;
+}
+.confirm-btn.no {
+  background-color: #eee;
+}

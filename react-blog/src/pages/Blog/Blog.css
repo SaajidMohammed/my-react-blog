@@ -1,0 +1,129 @@
+/* Main container for the blog page */
+.blog-container {
+  max-width: 1200px; /* Wider for grid layout */
+  margin: 2rem auto;
+  padding: 2rem;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Page title styling */
+.blog-page-title {
+  text-align: center;
+  font-size: 2.8rem;
+  color: #2c3e50; /* Dark slate blue */
+  margin-bottom: 3rem;
+  padding-bottom: 1rem;
+  border-bottom: 3px solid #1abc9c; /* Teal accent */
+}
+
+/* --- 👇 KEY CHANGES ARE HERE 👇 --- */
+
+/* Container for the list of posts - CHANGED TO GRID */
+.blog-posts-list {
+  display: grid;
+  /* This creates a responsive grid. It will fit as many 350px columns as it can. */
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem; /* Space between blog post cards */
+}
+
+/* Individual blog post item styling - MODIFIED FOR CARD LAYOUT */
+.blog-post-item {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  /* Added flex to align content within the card */
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-post-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Removes default link styling from the title link */
+.post-title-link {
+  text-decoration: none;
+}
+
+.blog-post-item h2 {
+  font-size: 1.8rem; /* Slightly smaller for card layout */
+  color: #34495e;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.blog-post-item:hover h2 {
+  color: #1abc9c;
+}
+
+/* Metadata (author, date) styling */
+.post-meta {
+  font-size: 0.9rem;
+  color: #7f8c8d; /* Asbestos color */
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+/* Post excerpt styling - MODIFIED FOR CARD LAYOUT */
+.post-excerpt {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 1.5rem;
+  flex-grow: 1; /* This pushes the "Read More" link to the bottom */
+}
+
+/* "Read More" link styling */
+.read-more-link {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #1abc9c;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.read-more-link:hover {
+  color: #16a085; /* Darker teal */
+  text-decoration: underline;
+}
+
+.post-content-preview {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Ensures the card footer aligns */
+}
+
+/* Ensure the image is clickable and looks good */
+.blog-post-item img.post-image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+}
+
+/* Style for the error message */
+.error-message {
+  text-align: center;
+  padding: 2rem;
+  background-color: #ffe6e6;
+  color: #e74c3c;
+  border: 1px solid #e74c3c;
+  border-radius: 8px;
+}
+
+/* Fade-in animation for page load */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
