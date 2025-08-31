@@ -149,6 +149,14 @@ app.put('/api/posts/:id', authMiddleware, upload.single('postImage'), async (req
     }
 });
 
+app.get('/', (req, res) => {
+  res.send('Backend server is running successfully!');
+});
+
+// --- Authentication Routes ---
+app.use('/api/auth', authRoutes);
+// ... rest of your routes
+
 
 // 7. Start the Server
 app.listen(PORT, () => {
