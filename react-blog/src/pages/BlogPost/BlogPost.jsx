@@ -15,7 +15,7 @@ const BlogPost = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/posts/${id}`);
+        const response = await fetch(`https://my-react-blog-backend.onrender.com/api/posts/${id}`);
         if (!response.ok) {
           if (response.status === 404) {
             setPost(null); // Correctly handle "Not Found"
